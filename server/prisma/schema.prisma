@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+//Boas práticas para tabelas: plural com letras minúsculas
+
+//É melhor usar o uuid do que usar o incremetal , pois pode trazer prolemas de segurança.
+//uuid: Universal Unique ID
+//Outra opção é usar Snowflake ID (criado pelo Twitter), usando o milissecundo + variáveis
+
+model Feedback {
+  id         String  @id @default(uuid())
+  type       String
+  comment    String
+  screenshot String? //O ponto de interrogação é para campos opcionais
+
+  @@map("feedbacks")
+}
